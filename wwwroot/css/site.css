@@ -1,0 +1,81 @@
+html {
+  font-size: 14px;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  margin-bottom: 60px;
+}
+.control-box {
+    border: 1px solid black;
+}
+
+.form-box {
+    border: 1px solid black;
+}
+
+.wraper {
+    min-height: 400px;
+}
+
+.child-box {
+    padding: 20px;
+}
+
+.child-box {
+    border: 1px solid #ddd;
+}
+
+    .form-box.drag-over,
+    .child-box.drag-over,
+    .form-group.drag-over {
+        border: 1px solid red;
+        background-color: pink;
+    }
+
+#form-box {
+    height: 100%;
+}
+
+.form-group {
+    border: 1px solid #ddd;
+}
+
+.dummy {
+    border: 1px solid #ddd;
+    background-color: #aaa;
+}
+
+.btn-default{
+  background-color: black;
+  color: white;
+}
+
+.btn-default:hover{
+  color: white;
+  background-color: rgb(80,80,80);
+}
+
+.label-form{
+  display: inline-block;
+  width: 100% !important;
+  padding-top: 2px;
+  padding-bottom: 2px;
+}
+
+#OptionItem1,#OptionItem2{
+  border: 3px solid #ddd; 
+  padding: 5px 10px 5px 10px;
+  margin: 10px ; 
+  display: none;
+}

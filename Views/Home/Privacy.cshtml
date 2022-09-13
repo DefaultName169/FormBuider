@@ -1,0 +1,406 @@
+﻿@model IEnumerable<WebApplication2.Models.BuilderForm>
+@{
+	ViewData["Title"] = "Privacy";
+}
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css" />
+<div class="container">
+	<div class="row wraper">
+		<div class="col-4 control-box">
+			<ul>
+				<li id="item1" class="item"><div class="form-group">Item 1</div></li>
+				<li id="item2" class="item"><div class="form-group">Item 2</div></li>
+				<li id="item3" class="item"><div class="form-group">Item 3</div></li>
+				<li id="item4" class="item"><div class="form-group">Item 4</div></li>
+			</ul>
+		</div>
+		<div class="col-7">
+			<div class="container form-box" id="form-box">
+				@foreach (var i in Model)
+				{
+				<form method="post">
+					<div class="child-box row">
+						<div class="form-group col-12">@i.Name
+							<div style="float: right;">
+								<button class="delete" style="opacity: 10%" onmouseover="mouseoverfunction(this)" onmouseout="mouseoutfunction(this)"><i  class="fa-solid fa-x"></i></button>
+								<button class="edit" style="opacity: 10%" onclick="editfunction(event)" onmouseover="mouseoverfunction(this)" onmouseout="mouseoutfunction(this)"><i class="fa-solid fa-pen-to-square"></i></button>
+								<button class="copy" style="opacity: 10%" onmouseover="mouseoverfunction(this)" onmouseout="mouseoutfunction(this)"><i class="fa-solid fa-copy"></i></button>
+							</div>
+
+							<div id="OptionItem1"
+								style="border: 3px solid #ddd; padding: 20px;margin: 10px ; display: none;">
+								<div class="prev-holder" data-field-id="frmb-1660718972749-fld-9">
+									<div
+										class="formbuilder-autocomplete form-group field-autocomplete-1660788379556-0-preview">
+										<input class="form-control" autocomplete="off" name="">
+										<input class="form-control" name="autocomplete-1660788379556-0-preview"
+											id="autocomplete-1660788379556-0-preview" type="hidden">
+										<select id="autocomplete-1660788379556-0-preview-list" class="formbuilder-autocomplete-list">
+											<option value="option-1">Option @i.Option</option>
+											<option value="option-2">Option </option>
+											<option value="option-3">Option </option>
+										</select>
+									</div>
+								</div>
+								<div id="frmb-1660718972749-fld-9-holder" class="frm-holder"
+									data-field-id="frmb-1660718972749-fld-9">
+									<div class="form-elements">
+										<div class="form-group required-wrap">
+											<label for="required-frmb-1660718972749-fld-9">Required</label>
+											<div class="input-wrap">
+												<input type="checkbox" class="fld-required" name="required"
+													id="required-frmb-1660718972749-fld-9">
+											</div>
+										</div>
+										<div class="form-group label-wrap" style="display: block">
+											<label for="label-frmb-1660718972749-fld-9">Label</label>
+											<div class="input-wrap">
+												<div name="label" placeholder="Label" class="fld-label form-control"
+													id="label-frmb-1660718972749-fld-9" contenteditable="true">
+													Autocomplete
+												</div>
+											</div>
+										</div>
+										<div class="form-group description-wrap" style="display: block">
+											<label for="description-frmb-1660718972749-fld-9">Help Text</label>
+											<div class="input-wrap">
+												<input name="description" placeholder=""
+													class="fld-description form-control"
+													id="description-frmb-1660718972749-fld-9" value="" type="text">
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</form>
+				}
+			</div>
+		</div>
+		<div class="col-1">
+			<button class="btn btn-primary"> Submit</button>
+		</div>
+	</div>
+</div>
+
+<script>
+	function editfunction(e){
+        e.preventDefault();
+		var x = document.getElementById("OptionItem1");
+		if (x.style.display === "none") {
+			x.style.display = "block";
+		} else {
+			x.style.display = "none";
+	}
+	}
+	function mouseoverfunction(x){
+		x.style.opacity = '1'
+	}
+	function mouseoutfunction(x){
+		x.style.opacity = '0.1'
+	}
+</script>
+
+<script type="text/template" id="button-3x">
+	<div style= "float: right;">
+		<button class= "delete" style="opacity: 10%"><i class="fa-solid fa-x"></i></button>
+		<button class= "edit" style="opacity: 10%"><i class="fa-solid fa-pen-to-square"></i></button>
+		<button class= "copy" style="opacity: 10%"><i class="fa-solid fa-copy"></i></button>
+	</div>
+</script>
+
+
+<script type="text/template" id="Item1">
+	<div id = 'OptionItem1' style="border: 3px solid #ddd; padding: 20px;margin: 10px ; display: none;" >
+		<div class="prev-holder" data-field-id="frmb-1660718972749-fld-9">
+			<div class="formbuilder-autocomplete form-group field-autocomplete-1660788379556-0-preview">
+				<input class="form-control" name="autocomplete-1660788379556-0-preview" id="autocomplete-1660788379556-0-preview" type="hidden">
+				 <select id="autocomplete-1660788379556-0-preview-list" class="formbuilder-autocomplete-list">
+					<option value="option-1">Option 1</option>
+					<option value="option-2">Option 2</option>
+					<option value="option-3">Option 3</option>
+				</select>
+			</div>
+		</div>
+		<div id="frmb-1660718972749-fld-9-holder" class="frm-holder" data-field-id="frmb-1660718972749-fld-9">
+			<div class="form-elements">
+				<div class="form-group required-wrap">
+					<label for="required-frmb-1660718972749-fld-9">Required</label>
+					<div class="input-wrap">
+						<input type="checkbox" class="fld-required" name="required" id="required-frmb-1660718972749-fld-9">
+					</div>
+				</div>
+				<div class="form-group label-wrap" style="display: block">
+					<label for="label-frmb-1660718972749-fld-9">Label</label>
+					<div class="input-wrap">
+						<div name="label" placeholder="Label" class="fld-label form-control" id="label-frmb-1660718972749-fld-9" contenteditable="true">Autocomplete
+						</div>
+					</div>
+				</div>
+					<div class="form-group description-wrap" style="display: block">
+					<label for="description-frmb-1660718972749-fld-9">Help Text</label>
+					<div class="input-wrap">
+						<input name="description" placeholder="" class="fld-description form-control" id="description-frmb-1660718972749-fld-9" value="" type="text">
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</script>
+
+<script>
+	var formBox = document.getElementById("form-box");
+console.log(formBox)
+	formBox.addEventListener("drop", function (event) {
+		event.preventDefault();
+		event.stopPropagation();
+		const id = event.dataTransfer.getData("text");
+		console.log(id);
+		const draggable = document
+			.getElementById(id)
+			.firstChild.cloneNode(true);
+		const classss = document.getElementById(id).classList[0];
+		draggable.classList.add("col-12");
+		$(document).ready(function () {
+			$(draggable).append(document.getElementById("button-3x").innerHTML);
+			$(draggable).append(document.getElementById("OptionItem1").innerHTML);
+			if (id === "item1") {
+				$(draggable).append(document.getElementById("Item1").innerHTML);
+				$(".edit").click(function () {
+					setTimeout(function () {
+						$("#OptionItem1").toggle();
+					}, 100);
+				});
+				$(".delete").click(function () {
+					let text = "Chắc chưa con zai??";
+					if (confirm(text) == true) {
+						$(draggable).parent().remove();
+					}
+				});
+				$(".copy").click(function () {
+					$(draggable).parent().clone().appendTo(".form-box");
+				});
+			}
+			if (id === "item2") {
+				$(draggable).append(document.getElementById("Item2").innerHTML);
+
+				$(".edit").click(function () {
+					setTimeout(function () {
+						$("#OptionItem2").toggle();
+					}, 100);
+				});
+				$(".delete").click(function () {
+					let text = "Chắc chưa con zai??";
+					if (confirm(text) == true) {
+						$(draggable).parent().remove();
+					}
+				});
+				$(".copy").click(function () {
+					$(draggable).parent().clone().appendTo(".form-box");
+				});
+			}
+		});
+
+		// document.createElement('button')
+		// document.getElementById('button-3x').innerHTML
+
+		if (event.target.classList.contains("dummy")) {
+			if (!event.target.classList.contains("col-1")) {
+				event.target.classList.add("row");
+				event.target.classList.add("child-box");
+			}
+			event.target.classList.remove("dummy");
+
+			event.target.appendChild(draggable);
+			event.target.classList.remove("drag-over");
+		} else {
+			if (event.target.classList.contains("child-box")) {
+				var container = event.target.closest(".form-box");
+
+				var row = createRow();
+				row.appendChild(draggable);
+
+				if (getPosition(event) === "top") {
+					event.target.insertAdjacentElement("beforeBegin", row);
+				} else {
+					event.target.insertAdjacentElement("afterEnd", row);
+				}
+				container.classList.remove("drag-over");
+				console.log("2");
+			} else {
+				var box = event.target.closest(".child-box");
+				var form = event.target.closest(".form-group");
+				if (form) {
+					form.appendChild(draggable);
+				}
+				if (box) {
+					box.appendChild(draggable);
+					int = box.childNodes.length;
+					box.classList.remove("drag-over");
+					box.childNodes.forEach((element) => {
+						element.style.width = 100 / int + "%";
+					});
+					console.log("3");
+					//Xử lý insert trái/phải
+				} else {
+					// console.log(box)
+					var row = createRow();
+					row.appendChild(draggable);
+					event.target.appendChild(row);
+					event.target.classList.remove("drag-over");
+					// console.log(document.getElementById('button-3x').innerHTML);
+					// document.write(document.getElementById('button-3x').innerHTML);
+				}
+			}
+		}
+	});
+
+	formBox.addEventListener("dragenter", function (event) {
+		event.preventDefault();
+	});
+
+	formBox.addEventListener("dragover", function (event) {
+		event.preventDefault();
+		if (event.target.classList.contains("dummy")) {
+		} else {
+			if (event.target.classList.contains("child-box")) {
+				var container = event.target.closest(".form-box");
+				container.classList.add("drag-over");
+
+				if (getPosition(event) === "top") {
+					if (!checkDummyExist(event.target, 2)) {
+						clearDummy();
+						var dummy = createDummy();
+						event.target.insertAdjacentElement("beforeBegin", dummy);
+					}
+				} else {
+					if (!checkDummyExist(event.target, 3)) {
+						clearDummy();
+						var dummy = createDummy();
+						event.target.insertAdjacentElement("afterEnd", dummy);
+					}
+				}
+			} else {
+				var box = event.target.closest(".child-box");
+				if (box) {
+					box.classList.add("drag-over");
+				} else {
+					event.target.classList.add("drag-over");
+				}
+			}
+		}
+	});
+
+	function clickEdit() {
+		setTimeout(function () {
+			$(".child-box").append(document.getElementById("getName").innerHTML);
+			$(".child-box").append(
+				document.getElementById("getOption").innerHTML
+			);
+		}, 50);
+	}
+
+	function clickDelete() {
+		document
+			.getElementById("delete")
+			.addEventListener("click", function () { });
+	}
+
+	formBox.addEventListener("dragleave", function (event) {
+		event.preventDefault();
+		if (event.target.classList.contains("child-box")) {
+			var container = event.target.closest(".form-box");
+			container.classList.remove("drag-over");
+		} else {
+			var box = event.target.closest(".child-box");
+			if (box) {
+				box.classList.remove("drag-over");
+			} else {
+				event.target.classList.remove("drag-over");
+			}
+		}
+	});
+
+	var items = document.querySelectorAll(".item");
+	items.forEach((item) => {
+		item.setAttribute("draggable", true);
+		item.addEventListener("dragstart", function (event) {
+			event.dataTransfer.setData("text", event.target.id);
+			event.dataTransfer.effectAllowed = "copy";
+		});
+
+		item.addEventListener("dragend", function (event) {
+			clearDummy();
+		});
+	});
+
+	function createContainer() {
+		var container = document.createElement("div");
+		container.classList.add("container");
+		return container;
+	}
+
+	function createRow() {
+		var row = document.createElement("div");
+		row.classList.add("child-box");
+		row.classList.add("row");
+		return row;
+	}
+
+	function getPosition(event) {
+		var height = event.target.offsetHeight;
+		var offsetY = event.offsetY;
+
+		var width = event.target.offsetWidth;
+		var offsetX = event.offsetX;
+
+		var topBottom = offsetY > height / 2 ? "bottom" : "top";
+		var leftRight = offsetX > width / 2 ? "left" : "right";
+
+		return offsetY > height / 2 ? "bottom" : "top";
+	}
+
+	function createDummy(large = true) {
+		var dummy = document.createElement("div");
+		dummy.classList.add("dummy");
+		dummy.style.minHeight = "50px";
+		if (!large) {
+			dummy.classList.add("col-1");
+		}
+		return dummy;
+	}
+
+	/*
+						position:
+							= 1: last children of container
+					= 2: before of element
+					= 3: after of element
+			*/
+	function checkDummyExist(element, position = 1) {
+		var dummy;
+		switch (position) {
+			case 1:
+				dummy = element.lastChild;
+				break;
+			case 2:
+				dummy = element.previousElementSibling;
+				break;
+			case 3:
+				dummy = element.nextElementSibling;
+				break;
+			default:
+				break;
+		}
+
+		return !!dummy?.classList.contains("dummy");
+	}
+
+	function clearDummy() {
+		var dummys = document.querySelectorAll(".dummy");
+		dummys.forEach((item) => {
+			item.remove();
+		});
+	}
+</script>

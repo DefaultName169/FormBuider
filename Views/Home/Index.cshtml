@@ -1,0 +1,428 @@
+﻿@model IEnumerable<WebApplication2.Models.BuilderForm>
+
+@{
+	ViewData["Title"] = "Home Page";
+	string check="";
+}
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css" />
+<div class="container">
+	<form method="post" action="">
+	<div class="row wraper">
+		<div class="col-4 control-box">
+			<ul>
+				<li id="item1" class="item"><div class="form-group"><span>Autocomplete</span></div></li>
+				<li id="item2" class="item"><div class="form-group"><span>Button</span></div></li>
+				<li id="item3" class="item"><div class="form-group"><span>Checkbox</span></div></li>
+				<li id="item4" class="item"><div class="form-group"><span>Date</span></div></li>
+			</ul>
+		</div>
+		
+		<div class="col-7">
+			<div class="container form-box" id="form-box">
+				@foreach (var i in Model)
+				{
+					//OptionItem1
+					 if(@i.Type == "Autocomplete"){ 
+					<div class="child-box row">
+						<div class="form-group col-12">
+							<span>@i.Name</span>
+							<div style="float: right;">
+								<a type="button" class="delete fa-solid fa-x" style="opacity: 10%" onclick="deletefunction(event)" onmouseover="mouseoverfunction(this)" onmouseout="mouseoutfunction(this)"></a>
+								<a type="button" class="edit fa-solid fa-pen-to-square" style="opacity: 10%" onclick="editfunction(event)" onmouseover="mouseoverfunction(this)" onmouseout="mouseoutfunction(this)"></a>
+								<a type="button" class="copy fa-solid fa-copy" style="opacity: 10%" onclick="copyfunction(event)" onmouseover="mouseoverfunction(this)" onmouseout="mouseoutfunction(this)"></a>
+							</div>
+
+							<div id="OptionItem1">
+								<label class="label-form">Name</label>
+								<input asp-for=@i.Name type="text" class="input-group" onchange="changename(event)">
+								<label class="label-form">Options</label>
+								<select id="selectlist" class="form-control" asp-for="@i.Option">
+									<option value="option-1">Option 1</option>
+									<option value="option-2">Option 2</option>
+									<option value="option-3">Option 3</option>
+								</select>
+								<label class="label-form">Required</label>
+									<input type="checkbox" class="input-group"
+										id="required" 	@if((bool)@i.Required){{check = "checked";}  @check}>
+								<label class="label-form">Label</label>
+									<input asp-for=@i.Label type="text" class="input-group">
+								<label class="label-form">Help Text</label>
+									<input asp-for=@i.HelpText type="text" class="input-group">
+								</div>
+							</div>
+						</div>
+					 }
+					else 
+					if(@i.Type == "Button"){
+						//OptionItem2
+						<div class="child-box row">
+							<div class="form-group col-12">
+								<button id="buttonbtn" value="Button" type="button" class="@i.Buttion">Button</button>
+								<div style="float: right;">
+									<a type="button" class="delete fa-solid fa-x" style="opacity: 10%" onclick="deletefunction(event)" onmouseover="mouseoverfunction(this)" onmouseout="mouseoutfunction(this)"></a>
+									<a type="button" class="edit fa-solid fa-pen-to-square" style="opacity: 10%" onclick="editfunction(event)" onmouseover="mouseoverfunction(this)" onmouseout="mouseoutfunction(this)"></a>
+									<a type="button" class="copy fa-solid fa-copy" style="opacity: 10%" onclick="copyfunction(event)" onmouseover="mouseoverfunction(this)" onmouseout="mouseoutfunction(this)"></a>
+								</div>
+
+								<div id = 'OptionItem2'>
+									<label class="label-form">Name</label>
+									<input asp-for=@i.Name type="text" class="input-group" onchange="changename(event)">
+									<label class="label-form">Label</label>
+									<input asp-for=@i.Label type="text" class="input-group">
+									<label class="label-form">Type</label>
+									<select id="i_subtype" name="subtype" asp-for=@i.Option class="form-control">
+										<option label="Button" value="button">Button</option>
+										<option label="Submit" value="submit">Submit</option>
+										<option label="Reset" value="reset">Reset</option>
+									</select>
+									<label class="label-form">Style</label>
+									<input value="default" type="hidden" class="btn-style" />
+									<div class="btn-group">
+										<button value="default" type="button" class="btn-xs btn btn-default" onclick="changebtn(event)">Default</button>
+										<button value="danger" type="button" class="btn-xs btn btn-danger" onclick="changebtn(event)">Danger</button>
+										<button value="info" type="button" class="btn-xs btn btn-info" onclick="changebtn(event)">Info</button>
+										<button value="primary" type="button" class="btn-xs btn btn-primary" onclick="changebtn(event)">Primary</button>
+										<button value="success" type="button" class="btn-xs btn btn-success" onclick="changebtn(event)">Success</button>
+										<button value="warning" type="button" class="btn-xs btn btn-warning" onclick="changebtn(event)">Warning</button>
+									</div>
+									<label class="label-form">Class</label>
+									<input asp-for=@i.Class type="text" class="input-group">
+									<label class="label-form">Value</label>
+										<input name="value" placeholder="Value" class="fld-value form-control" id="value-frmb-1661931448076-fld-5"/>
+									<label class="label-form">Access</label>
+										<input type="checkbox" class="fld-access" name="access"/>
+										<label class="label-form">Limit access to one or more of the following roles:</label>
+										<label class="label-form"><input type="checkbox" class="roles-field"/>Administrator</label>
+								</div>
+							</div>
+						</div>
+					} 
+					else if(@i.Type == "Checkbox"){
+
+					}
+				}
+			</div>	
+		</div>
+		<div class="col-1">
+			<input id="submit" type="button" class="btn btn-primary" value="Submit" />
+		</div>	
+	</div>
+	</form>	
+</div>
+
+
+@*Dieu khien 3 button*@
+<script>
+	function editfunction(e) {
+		var displaystyle = e.path[2].children[2]
+		if(displaystyle.style.display === "none"){
+			displaystyle.style.display = "block";
+		}
+		else
+			displaystyle.style.display = "none";
+	}
+	function mouseoverfunction(x) {
+		x.style.opacity = '1';
+	}
+	function mouseoutfunction(x) {
+		x.style.opacity = '0.1';
+	}
+	function deletefunction(x){
+		x.path[3].remove();
+	}
+	function copyfunction(x){
+		node = x.path[3].cloneNode(true);
+		x.path[4].appendChild(node);
+	}
+	function changebtn(e){
+		e.path[3].children[0].classList.remove(e.path[3].children[0].classList[2]);
+		e.path[3].children[0].classList.add(e.target.classList[2])
+	}
+	function changename(e){
+		e.path[3].children[0].children[0].innerText = e.path[0].value
+	}
+</script>
+
+<script>
+	if(document.querySelectorAll("#i_HelpText"))
+
+
+	var formBox = document.getElementById("form-box");
+	formBox.addEventListener("drop", function (event) {
+		event.preventDefault();
+		event.stopPropagation();
+		const id = event.dataTransfer.getData("text");
+		const draggable = document
+			.getElementById(id)
+			.firstChild.cloneNode(true);
+		var newdiv = document.createElement("div");
+		newdiv.style.float = "right"
+		newdiv.innerHTML = "<a type=\"button\" class=\"delete fa-solid fa-x\" style=\"opacity: 10%\" onclick=\"deletefunction(event)\" onmouseover=\"mouseoverfunction(this)\" onmouseout=\"mouseoutfunction(this)\"></a><a type=\"button\" class=\"edit fa-solid fa-pen-to-square\" style=\"opacity: 10%\" onclick=\"editfunction(event)\" onmouseover=\"mouseoverfunction(this)\" onmouseout=\"mouseoutfunction(this)\"></a><a type=\"button\" class=\"copy fa-solid fa-copy\" style=\"opacity: 10%\" onclick=\"copyfunction(event)\" onmouseover=\"mouseoverfunction(this)\" onmouseout=\"mouseoutfunction(this)\"></a>";
+		draggable.classList.add("col-12");
+		console.log(draggable);
+		draggable.appendChild(newdiv);
+		if(id=="item1"){
+			var newitem1 = document.createElement("div");
+			newitem1.setAttribute("id","OptionItem1");
+			newitem1.setAttribute("style","border: 3px solid #ddd; padding: 20px;margin: 10px ; display: none;");
+			newitem1.innerHTML = "<label>Name</label><input type=\"text\" class=\"input-group\" data-val=\"true\" data-val-required=\"The Name field is required.\" id=\"i_Name\" name=\"i.Name\" value=\"Autocomplete\"><label>Options</label><select id=\"selectlist\" class=\"form-control\" name=\"i.Option\"><option value=\"option-1\" selected=\"selected\">Option 1</option><option value=\"option-2\">Option 2</option><option value=\"option-3\">Option 3</option></select> <label for=\"required\">Required</label><input type=\"checkbox\" class=\"input-group\" id=\"required\"><label>Label</label><input type=\"text\" class=\"input-group\" id=\"i_Label\" name=\"i.Label\" value=\"Label\"><label>Help Text</label><input type=\"text\" class=\"input-group\" id=\"i_HelpText\" name=\"i.HelpText\" value=\"\">"
+			draggable.appendChild(newitem1);
+		}
+		else if(id=="item2"){
+			draggable.children[0].outerHTML = "<button id =\"buttonbtn\" value=\"Button\" type=\"button\" class=\"btn-xs btn btn-primary\">Button</button>";
+			var newitem2 = document.createElement("div");
+			newitem2.setAttribute("id","OptionItem2");
+			newitem2.setAttribute("style","border: 3px solid #ddd; padding: 20px;margin: 10px ; display: none;");
+			newitem2.innerHTML = "<label class=\"label-form\">Name</label><input type=\"text\" class=\"input-group\" onchange=\"changename(event)\" id=\"i_Name\" name=\"i.Name\" value=\"Button\"><label class=\"label-form\">Label</label><input type=\"text\" class=\"input-group\" id=\"i_Label\" name=\"i.Label\" value=\"Label\"><label class=\"label-form\">Type</label><select id=\"i_subtype\" name=\"subtype\" class=\"form-control\"><option label=\"Button\" value=\"button\" selected=\"selected\">Button</option><option label=\"Submit\" value=\"submit\">Submit</option><option label=\"Reset\" value=\"reset\">Reset</option></select><label class=\"label-form\">Style</label><input value=\"default\" type=\"hidden\" class=\"btn-style\"><div class=\"btn-group\"><button value=\"default\" type=\"button\" class=\"btn-xs btn btn-default\" onclick=\"changebtn(event)\">Default</button> <button value=\"danger\" type=\"button\" class=\"btn-xs btn btn-danger\" onclick=\"changebtn(event)\">Danger</button> <button value=\"info\" type=\"button\" class=\"btn-xs btn btn-info\" onclick=\"changebtn(event)\">Info</button> <button value=\"primary\" type=\"button\" class=\"btn-xs btn btn-primary\" onclick=\"changebtn(event)\">Primary</button> <button value=\"success\" type=\"button\" class=\"btn-xs btn btn-success\" onclick=\"changebtn(event)\">Success</button> <button value=\"warning\" type=\"button\" class=\"btn-xs btn btn-warning\" onclick=\"changebtn(event)\">Warning</button></div><label class=\"label-form\">Class</label><input type=\"text\" class=\"input-group\" id=\"i_Class\" name=\"i.Class\" value=\"\"><label class=\"label-form\">Value</label><input name=\"value\" placeholder=\"Value\" class=\"fld-value form-control\" id=\"value-frmb-1661931448076-fld-5\"><label class=\"label-form\">Access</label><input type=\"checkbox\" class=\"fld-access\" name=\"access\"><label class=\"label-form\">Limit access to one or more of the following roles:</label><label class=\"label-form\"><input type=\"checkbox\" class=\"roles-field\">Administrator</label>"
+			draggable.appendChild(newitem2);
+		}
+
+		if (event.target.classList.contains("dummy")) {
+			if (!event.target.classList.contains("col-1")) {
+				event.target.classList.add("row");
+				event.target.classList.add("child-box");
+			}
+			event.target.classList.remove("dummy");
+
+			event.target.appendChild(draggable);
+			event.target.classList.remove("drag-over");
+		} else {
+			if (event.target.classList.contains("child-box")) {
+				var container = event.target.closest(".form-box");
+
+				var row = createRow();
+				row.appendChild(draggable);
+
+				if (getPosition(event) === "top") {
+					event.target.insertAdjacentElement("beforeBegin", row);
+				} else {
+					event.target.insertAdjacentElement("afterEnd", row);
+				}
+				container.classList.remove("drag-over");
+				console.log("2");
+			} else {
+				var box = event.target.closest(".child-box");
+				var form = event.target.closest(".form-group");
+				if (form) {
+					form.appendChild(draggable);
+				}
+				if (box) {
+					box.appendChild(draggable);
+					int = box.childNodes.length;
+					box.classList.remove("drag-over");
+					box.childNodes.forEach((element) => {
+						element.style.width = 100 / int + "%";
+					});
+					console.log("3");
+					//Xử lý insert trái/phải
+				} else {
+					// console.log(box)
+					var row = createRow();
+					row.appendChild(draggable);
+					event.target.appendChild(row);
+					event.target.classList.remove("drag-over");
+				}
+			}
+		}
+	});
+
+	
+	formBox.addEventListener("dragenter", function (event) {
+		event.preventDefault();
+	});
+
+	formBox.addEventListener("dragover", function (event) {
+		event.preventDefault();
+		if (event.target.classList.contains("dummy")) {
+		} else {
+			if (event.target.classList.contains("child-box")) {
+				var container = event.target.closest(".form-box");
+				container.classList.add("drag-over");
+
+				if (getPosition(event) === "top") {
+					if (!checkDummyExist(event.target, 2)) {
+						clearDummy();
+						var dummy = createDummy();
+						event.target.insertAdjacentElement("beforeBegin", dummy);
+					}
+				} else {
+					if (!checkDummyExist(event.target, 3)) {
+						clearDummy();
+						var dummy = createDummy();
+						event.target.insertAdjacentElement("afterEnd", dummy);
+					}
+				}
+			} else {
+				var box = event.target.closest(".child-box");
+				if (box) {
+					box.classList.add("drag-over");
+				} else {
+					event.target.classList.add("drag-over");
+				}
+			}
+		}
+	});
+
+	formBox.addEventListener("dragleave", function (event) {
+		event.preventDefault();
+		if (event.target.classList.contains("child-box")) {
+			var container = event.target.closest(".form-box");
+			container.classList.remove("drag-over");
+		} else {
+			var box = event.target.closest(".child-box");
+			if (box) {
+				box.classList.remove("drag-over");
+			} else {
+				event.target.classList.remove("drag-over");
+			}
+		}
+	});
+
+	var items = document.querySelectorAll(".item");
+	items.forEach((item) => {
+		item.setAttribute("draggable", true);
+		item.addEventListener("dragstart", function (event) {
+			event.dataTransfer.setData("text", event.target.id);
+			event.dataTransfer.effectAllowed = "copy";
+		});
+
+		item.addEventListener("dragend", function (event) {
+			clearDummy();
+		});
+	});
+
+	function createContainer() {
+		var container = document.createElement("div");
+		container.classList.add("container");
+		return container;
+	}
+
+	function createRow() {
+		var row = document.createElement("div");
+		row.classList.add("child-box");
+		row.classList.add("row");
+		return row;
+	}
+
+	function getPosition(event) {
+		var height = event.target.offsetHeight;
+		var offsetY = event.offsetY;
+
+		var width = event.target.offsetWidth;
+		var offsetX = event.offsetX;
+
+		var topBottom = offsetY > height / 2 ? "bottom" : "top";
+		var leftRight = offsetX > width / 2 ? "left" : "right";
+
+		return offsetY > height / 2 ? "bottom" : "top";
+	}
+
+	function createDummy(large = true) {
+		var dummy = document.createElement("div");
+		dummy.classList.add("dummy");
+		dummy.style.minHeight = "50px";
+		if (!large) {
+			dummy.classList.add("col-1");
+		}
+		return dummy;
+	}
+
+	function checkDummyExist(element, position = 1) {
+		var dummy;
+		switch (position) {
+			case 1:
+				dummy = element.lastChild;
+				break;
+			case 2:
+				dummy = element.previousElementSibling;
+				break;
+			case 3:
+				dummy = element.nextElementSibling;
+				break;
+			default:
+				break;
+		}
+
+		return !!dummy?.classList.contains("dummy");
+	}
+
+	function clearDummy() {
+		var dummys = document.querySelectorAll(".dummy");
+		dummys.forEach((item) => {
+			item.remove();
+		});
+	}
+</script>
+
+@*OptionItem1*@
+<script type="text/template" id="Item1">
+	<div id="OptionItem1" style="border: 3px solid #ddd; padding: 20px;margin: 10px ; display: none;">
+		<label>Name</label>
+		<input type="text" class="input-group" data-val="true" data-val-required="The Name field is required." id="i_Name" name="i.Name" value="Autocomplete">
+		<label>Options</label>
+		<select id="selectlist" class="form-control" name="i.Option">
+			<option value="option-1">Option 1</option>
+			<option value="option-2">Option 2</option>
+			<option value="option-3">Option 3</option>
+		</select>
+		<label for="required">Required</label>
+			<input type="checkbox" class="input-group" id="required">
+		<label>Label</label>
+			<input type="text" class="input-group" id="i_Label" name="i.Label" value="Label">
+		<label>Help Text</label>
+			<input type="text" class="input-group" id="i_HelpText" name="i.HelpText" value="">
+	</div>
+</script>
+
+@*Khai bao 3 button*@
+<script type="text/template" id="button-3x">
+	<div style= "float: right;">
+		<a type="button" class="delete fa-solid fa-x" style="opacity: 10%" onclick="deletefunction(event)" onmouseover="mouseoverfunction(this)" onmouseout="mouseoutfunction(this)"></a>
+		<a type="button" class="edit fa-solid fa-pen-to-square" style="opacity: 10%" onclick="editfunction(event)" onmouseover="mouseoverfunction(this)" onmouseout="mouseoutfunction(this)"></a>
+		<a type="button" class="copy fa-solid fa-copy" style="opacity: 10%" onclick="copyfunction(event)" onmouseover="mouseoverfunction(this)" onmouseout="mouseoutfunction(this)"></a>
+	</div>
+</script>
+
+@*OptionItem2*@
+<script type="text/template" id="Item2">
+	<div class="form-group col-12">
+		<button id="buttonbtn" value="Button" type="button" class="btn-xs btn btn-danger">Button</button>
+		<div style="float: right;">
+			<a type="button" class="delete fa-solid fa-x" style="opacity: 10%" onclick="deletefunction(event)" onmouseover="mouseoverfunction(this)" onmouseout="mouseoutfunction(this)"></a>
+			<a type="button" class="edit fa-solid fa-pen-to-square" style="opacity: 10%" onclick="editfunction(event)" onmouseover="mouseoverfunction(this)" onmouseout="mouseoutfunction(this)"></a>
+			<a type="button" class="copy fa-solid fa-copy" style="opacity: 10%" onclick="copyfunction(event)" onmouseover="mouseoverfunction(this)" onmouseout="mouseoutfunction(this)"></a>
+		</div>
+
+		<div id="OptionItem2">
+			<label class="label-form">Name</label>
+			<input type="text" class="input-group" onchange="changename(event)" id="i_Name" name="i.Name" value="Button">
+			<label class="label-form">Label</label>
+			<input type="text" class="input-group" id="i_Label" name="i.Label" value="Label">
+			<label class="label-form">Type</label>
+			<select id="i_subtype" name="subtype" class="form-control">
+				<option label="Button" value="button" selected="selected">Button</option>
+				<option label="Submit" value="submit">Submit</option>
+				<option label="Reset" value="reset">Reset</option>
+			</select>
+			<label class="label-form">Style</label>
+			<input value="default" type="hidden" class="btn-style">
+			<div class="btn-group">
+				<button value="default" type="button" class="btn-xs btn btn-default" onclick="changebtn(event)">Default</button>
+				<button value="danger" type="button" class="btn-xs btn btn-danger" onclick="changebtn(event)">Danger</button>
+				<button value="info" type="button" class="btn-xs btn btn-info" onclick="changebtn(event)">Info</button>
+				<button value="primary" type="button" class="btn-xs btn btn-primary" onclick="changebtn(event)">Primary</button>
+				<button value="success" type="button" class="btn-xs btn btn-success" onclick="changebtn(event)">Success</button>
+				<button value="warning" type="button" class="btn-xs btn btn-warning" onclick="changebtn(event)">Warning</button>
+			</div>
+			<label class="label-form">Class</label>
+			<input type="text" class="input-group" id="i_Class" name="i.Class" value="">
+			<label class="label-form">Value</label>
+				<input name="value" placeholder="Value" class="fld-value form-control" id="value-frmb-1661931448076-fld-5">
+			<label class="label-form">Access</label>
+				<input type="checkbox" class="fld-access" name="access">
+				<label class="label-form">Limit access to one or more of the following roles:</label>
+				<label class="label-form"><input type="checkbox" class="roles-field">Administrator</label>
+		</div>
+	</div>
+</script>
